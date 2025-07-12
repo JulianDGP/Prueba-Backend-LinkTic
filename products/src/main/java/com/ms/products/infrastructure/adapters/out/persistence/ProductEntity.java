@@ -1,4 +1,4 @@
-package com.ms.products.infraestructure.adapters.out.persistence;
+package com.ms.products.infrastructure.adapters.out.persistence;
 
 import jakarta.persistence.*;
 import lombok.*;
