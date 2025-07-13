@@ -62,9 +62,25 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Fuerza Commons-Compress 1.27.1 para TODAS las dependencias que lo incluyan evitar CVE-2024-25710 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-testcontainers</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<!-- Excluimos la versión vulnerable -->
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-compress</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Agregamos la versión parcheada -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>1.27.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -86,17 +102,17 @@
 			<artifactId>spring-hateoas-jsonapi</artifactId>
 			<version>2.1.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.1.0</version>
+			<version>2.8.9</version>
 		</dependency>
 		<!-- Permite serialización de campos tipo java.time.Instant -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>

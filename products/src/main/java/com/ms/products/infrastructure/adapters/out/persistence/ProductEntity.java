@@ -27,9 +27,11 @@ public class ProductEntity {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    //Se genera automáticamente en la base de datos
     @Column(name = "created_at", updatable = false)
     private Instant createdAt;
 
+    //No se llena, se actualiza automáticamente en la base de datos
     @Column(name = "updated_at")
     private Instant updatedAt;
 }
