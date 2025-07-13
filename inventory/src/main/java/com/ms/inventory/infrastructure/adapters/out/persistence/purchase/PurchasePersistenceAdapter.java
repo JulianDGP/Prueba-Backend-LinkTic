@@ -5,6 +5,8 @@ import com.ms.inventory.domain.ports.out.PurchaseRepositoryPort;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @AllArgsConstructor
 public class PurchasePersistenceAdapter implements PurchaseRepositoryPort {
@@ -23,6 +25,11 @@ public class PurchasePersistenceAdapter implements PurchaseRepositoryPort {
                 .build();
         PurchaseEntity saved = repo.save(e);
         return mapToDomain(saved);
+    }
+
+    @Override
+    public Optional<Purchase> findById(Long id) {
+        return repo.findById(id).map(this::mapToDomain);
     }
 
     private Purchase mapToDomain(PurchaseEntity entity) {
