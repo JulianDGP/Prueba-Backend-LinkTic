@@ -1,5 +1,6 @@
 package com.ms.inventory.application.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.toedter.spring.hateoas.jsonapi.JsonApiId;
 import com.toedter.spring.hateoas.jsonapi.JsonApiTypeForClass;
 import lombok.AllArgsConstructor;

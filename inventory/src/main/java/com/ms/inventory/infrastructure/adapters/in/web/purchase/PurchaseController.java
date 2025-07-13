@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
@@ -31,8 +30,7 @@ public class PurchaseController {
     private final PurchaseRepresentationModelAssembler assembler;
 
 
-    @Operation(summary = "Realiza una compra de un producto", requestBody = @RequestBody(description = "ID de producto y cantidad a comprar",
-            required = true, content = @Content(schema = @Schema(implementation = PurchaseRequest.class))),
+    @Operation(summary = "Realiza una compra de un producto",
             responses = {@ApiResponse(responseCode = "201", description = "Compra realizada con éxito", content = @Content(schema = @Schema(implementation = PurchaseResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Datos inválidos o cantidad insuficiente"),
                     @ApiResponse(responseCode = "404", description = "Producto o inventario no encontrado")
