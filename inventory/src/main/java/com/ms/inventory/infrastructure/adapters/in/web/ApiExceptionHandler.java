@@ -33,7 +33,7 @@ public class ApiExceptionHandler {
     @Getter
     @Setter
     @NoArgsConstructor @AllArgsConstructor @Builder
-    static class ErrorDocument {
+    public static class ErrorDocument {
         private List<ErrorObject> errors;
     }
 
@@ -42,7 +42,7 @@ public class ApiExceptionHandler {
     @AllArgsConstructor
     @Builder
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    static class ErrorObject {
+    public static class ErrorObject {
         private String id;
         private String status;
         private String code;
