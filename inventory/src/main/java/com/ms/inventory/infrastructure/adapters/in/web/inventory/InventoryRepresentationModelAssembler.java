@@ -1,6 +1,7 @@
-package com.ms.inventory.infrastructure.adapters.in.web;
+package com.ms.inventory.infrastructure.adapters.in.web.inventory;
 
 import com.ms.inventory.application.dto.response.InventoryResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -15,7 +16,7 @@ public class InventoryRepresentationModelAssembler
 
 
     @Override
-    public EntityModel<InventoryResponse> toModel(InventoryResponse entity) {
+    public @NonNull EntityModel<InventoryResponse> toModel(@NonNull InventoryResponse entity) {
         return EntityModel.of(entity,
                 linkTo(methodOn(InventoryController.class).getByProductId(entity.getProductId()))
                         .withSelfRel()
@@ -24,7 +25,7 @@ public class InventoryRepresentationModelAssembler
 
 
     @Override
-    public CollectionModel<EntityModel<InventoryResponse>> toCollectionModel(Iterable<? extends InventoryResponse> entities) {
+    public @NonNull  CollectionModel<EntityModel<InventoryResponse>> toCollectionModel(@NonNull Iterable<? extends InventoryResponse> entities) {
         return RepresentationModelAssembler.super.toCollectionModel(entities);
     }
 }

@@ -21,16 +21,18 @@ public class WebClientConfig {
         return builder
                 .baseUrl(baseUrl)
                 .defaultHeader("X-API-KEY", apiKey)
-                // log request
                 .filter(ExchangeFilterFunction.ofRequestProcessor(req -> {
-                    log.info(">> [{}] {}", req.method(), req.url());
-                    req.headers().forEach((n, v) -> log.info(">> {}={}", n, v));
+                    log.info("[REQUEST] {} {} headers={}",
+                            req.method(), req.url(),
+                            req.headers().toSingleValueMap()
+                    );
                     return Mono.just(req);
                 }))
-                // log response
                 .filter(ExchangeFilterFunction.ofResponseProcessor(res -> {
-                    log.info("<< status {}", res.statusCode());
-                    res.headers().asHttpHeaders().forEach((n, v) -> log.info("<< {}={}", n, v));
+                    log.info("[RESPONSE] status={} headers={}",
+                            res.statusCode(),
+                            res.headers().asHttpHeaders().toSingleValueMap()
+                    );
                     return Mono.just(res);
                 }))
                 .build();

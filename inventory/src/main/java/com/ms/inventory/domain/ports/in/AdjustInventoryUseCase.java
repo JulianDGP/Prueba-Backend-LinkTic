@@ -6,7 +6,7 @@ public interface AdjustInventoryUseCase {
 
     /**
      * Ajusta la cantidad de stock para el producto dado.
-     * @param productId ID del producto.
+     * @param productId Id del producto.
      * @param newQuantity nueva cantidad (>=0).
      * @return entidad Inventory actualizada.
      */
