@@ -2,6 +2,7 @@ package com.ms.products.infrastructure.security;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ms.products.infrastructure.adapters.in.web.ApiExceptionHandler;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,33 +43,15 @@ public class ApiKeyFilter extends OncePerRequestFilter {
             // Construyo el error JSON:API manualmente
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             res.setContentType("application/vnd.api+json");
-            ErrorObject err = ErrorObject.builder()
+            ApiExceptionHandler.ErrorObject err = ApiExceptionHandler.ErrorObject.builder()
                     .status("401")
                     .title("Unauthorized")
                     .detail("Invalid or missing API key")
                     .build();
-            ErrorDocument doc = new ErrorDocument(List.of(err));
+            ApiExceptionHandler.ErrorDocument doc = new ApiExceptionHandler.ErrorDocument(List.of(err));
             mapper.writeValue(res.getWriter(), doc);
             return; // no continues al chain
         }
         chain.doFilter(req, res);
-    }
-
-    @Getter @Setter @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    static class ErrorDocument {
-        private List<ErrorObject> errors;
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor @AllArgsConstructor @Builder
-    static class ErrorObject {
-        private String id;
-        private String status;
-        private String code;
-        private String title;
-        private String detail;
     }
 }
