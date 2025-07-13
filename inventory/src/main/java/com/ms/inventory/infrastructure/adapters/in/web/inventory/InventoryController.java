@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +55,7 @@ public class InventoryController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @Operation(summary = "Crea el registro de inventario para un producto", requestBody = @RequestBody(description = "ID de producto y cantidad inicial", required = true, content = @Content(schema = @Schema(implementation = InventoryCreateRequest.class))),
+    @Operation(summary = "Crea el registro de inventario para un producto",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Inventario creado", content = @Content(schema = @Schema(implementation = InventoryResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Datos inválidos o inventario ya existe")
@@ -73,7 +72,7 @@ public class InventoryController {
         return ResponseEntity.created(location).body(model);
     }
 
-    @Operation(summary = "Ajusta la cantidad de inventario de un producto existente", requestBody = @RequestBody(description = "ID de producto y nueva cantidad", required = true, content = @Content(schema = @Schema(implementation = InventoryUpdateRequest.class))),
+    @Operation(summary = "Ajusta la cantidad de inventario de un producto existente",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Cantidad ajustada", content = @Content(schema = @Schema(implementation = InventoryResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Datos inválidos o IDs no coinciden"),
@@ -83,6 +82,7 @@ public class InventoryController {
     @PatchMapping(path = "/{productId}", consumes = JSON_API_VALUE)
     public ResponseEntity<EntityModel<InventoryResponse>> updateQuantity(@PathVariable Long productId,
                                                                          @RequestBody InventoryUpdateRequest req) {
+        log.info("inicia endpoint que actualiza inventario de producto: {} ", productId);
         log.info("PATCH /inventory/{} ← payload={}", productId, req.getData().getAttributes());
         if (!req.getData().getId().equals(productId))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID in path and body must match");
