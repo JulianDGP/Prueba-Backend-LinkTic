@@ -91,8 +91,12 @@ Inventory ▶️ http://localhost:8081
 
 <a id="5-diagrama-de-arquitectura"></a>
 ## 5. 🏛️ Diagrama de arquitectura
-
+### 5.1 Diagrama arquitectura de microservicios 
 <img width="670" height="427" alt="image" src="https://github.com/user-attachments/assets/bfb3dd52-83fb-4545-b317-af378e585c1d" />
+
+### 5.2 Diagrama de esquema relacional
+
+<img width="407" height="378" alt="image" src="https://github.com/user-attachments/assets/8ba86d1c-2dc1-404b-9a0d-da9f57a1b2ff" />
 
 <a id="6-endpoints-principales"></a>
 ## 6. Endpoints principales y flujo de interaccion entre servicios
