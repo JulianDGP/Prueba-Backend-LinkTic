@@ -2,7 +2,6 @@ package com.ms.inventory.application.mapper;
 
 import com.ms.inventory.application.dto.response.InventoryProductResponse;
 import com.ms.inventory.application.dto.response.InventoryResponse;
-import com.ms.inventory.domain.model.Inventory;
 import com.ms.inventory.domain.model.InventoryInfo;
 import org.springframework.stereotype.Component;
 
@@ -22,14 +21,6 @@ public class InventoryInfoDtoMapper {
                         .updatedAt(info.getProduct().getUpdatedAt())
                         .build()
                 )
-                .build();
-    }
-
-    public InventoryResponse fromAdjusted(Inventory updated) {
-        return InventoryResponse.builder()
-                .productId(updated.getProductId())
-                .quantity(updated.getQuantity())
-                .updatedAt(updated.getUpdatedAt())
                 .build();
     }
 }
