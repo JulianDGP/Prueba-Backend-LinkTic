@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: inventory-postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: Inventario
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "${DB_PORT}:5432"
+
+  products:
+    build:
+      context: ./products
+      dockerfile: Dockerfile
+    image: products:latest
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      spring.datasource.url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/Inventario
+    ports:
+      - "8080:8080"
+
+  inventory:
+    build:
+      context: ./inventory
+      dockerfile: Dockerfile
+    image: inventory:latest
+    depends_on:
+      - db
+      - products
+    env_file:
+      - .env
+    environment:
+      spring.datasource.url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/Inventario
+      products.service.url: ${PRODUCT_HOST}
+      inventory.api.key: ${API_KEY_SECRET}
+
+    ports:
+      - "8081:8081"
+
+volumes:
+  db-data: {}
