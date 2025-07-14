@@ -64,4 +64,10 @@ PostgreSQL 📦 en localhost:5435
 Products ▶️ http://localhost:8080
 
 Inventory ▶️ http://localhost:8081
-  
+
+## 🧪 Testing y Cobertura
+
+Se consigue un 100% de cobertura en servicios/casos de uso y endpoints, y un total de 89% en todo el microsericio de inventario
+
+<img width="1842" height="562" alt="Cobertura" src="https://github.com/user-attachments/assets/5ff86892-3ab8-48bd-84ed-517cced9f2fc" />
+
